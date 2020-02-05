@@ -12,7 +12,23 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap/js/bootstrap.min.js"></script>
-
+    <style>
+        .picBg {
+            display: block;
+            width: 100px;
+            font-size: 30px;
+            padding-left: 35px;
+            cursor: pointer;
+        }
+        
+        .upspan {
+            margin-left: 10px;
+        }
+        
+        #user_pic {
+            opacity: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,6 +61,8 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">用户图标：</label>
                     <div class="col-sm-10">
                         <img src="images/2.jpg" alt="" class="user_pic">
+                        <label for="user_pic" class="picBg glyphicon glyphicon-upload"></label>
+                        <span class="upspan">点击上传图片</span>
                         <input type="file" name="user_pic" id="user_pic">
                     </div>
                 </div>
