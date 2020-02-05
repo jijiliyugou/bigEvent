@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="js/bootstrap/css/bootstrap.min.css">
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -29,8 +32,66 @@
             </form>
         </div>
 
-    </div> 
+    </div>
+    <!-- bootstrap 模态框 -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">提示框</h4>
+                </div>
+                <div class="modal-body">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    document.querySelector('.input_sub').onclick = function(e) {
+        e = e || window.event
+        e.preventDefault()
+        var logValue = {
+            email: document.querySelector('.input_txt').value,
+            pass: document.querySelector('.input_pass').value
+        }
+
+        if (!logValue.email || !logValue.pass) {
+            $('.modal-body').text('用户名或密码不能为空')
+            $('#myModal').modal()
+            return
+        }
+        $.ajax({
+            type: 'post',
+            url: "https://autumnfish.cn/big/admin/login",
+            data: {
+                user_name: logValue.email,
+                password: logValue.pass
+            },
+            dataType: 'json',
+            success: function(data) {
+                const {
+                    msg,
+                    code
+                } = data
+                if (code === 400) {
+                    $('.modal-body').text(msg)
+                    $('#myModal').modal()
+                    return
+                } else if (code === 200) {
+                    localStorage.setItem('token', 123456)
+                    window.location.href = './index.html'
+                }
+            }
+        })
+        document.querySelector('.input_txt').value = null
+        document.querySelector('.input_pass').value = null
+    }
+</script>
 
 </html>
