@@ -19,7 +19,7 @@
         <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
         <div class="user_info">
             <img src="images/2.jpg" alt="person">
-            <span>欢迎&nbsp;&nbsp;李思思</span>
+            <span>欢迎&nbsp;&nbsp;<i style="font-style: normal">李思思</i></span>
             <b>管理员</b>
         </div>
         <div class="menu">
@@ -128,25 +128,38 @@
 
         // 我的代码===================================================
         $(function() {
+            // 退出功能===========================
             $('.icon-tuichu').parent('a').click(function() {
-                $('.modal-body').text('确定要残忍退出吗？')
-                $('#myModal').modal()
-                $('.btn-primary').click(function() {
-                    $.ajax({
-                        method: 'post',
-                        url: 'https://autumnfish.cn/big/admin/logout',
-                        dataType: 'json',
-                        success: function(data) {
-                            const {
-                                code,
-                                msg
-                            } = data
-                            if (code === 200) {
-                                window.location.href = './login.html'
+                    $('.modal-body').text('确定要残忍退出吗？')
+                    $('#myModal').modal()
+                    $('.btn-primary').click(function() {
+                        $.ajax({
+                            method: 'post',
+                            url: 'https://autumnfish.cn/big/admin/logout',
+                            dataType: 'json',
+                            success: function(data) {
+                                const {
+                                    code,
+                                    msg
+                                } = data
+                                if (code === 200) {
+                                    window.localStorage.removeItem('token')
+                                    window.location.href = './login.html'
+                                }
                             }
-                        }
+                        })
                     })
                 })
+                // 获取用户信息功能
+            $.ajax({
+                method: 'get',
+                url: 'https://autumnfish.cn/big32/admin/getuser',
+                dataType: 'json',
+                success: function(data) {
+                    $('.user_info i').text(data.data.nickname)
+                    $('.user_info img').attr('src', data.data.user_pic)
+                    $('.user_center_link img').attr('src', data.data.user_pic)
+                }
             })
         })
     </script>
