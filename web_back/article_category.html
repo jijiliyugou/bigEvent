@@ -75,8 +75,8 @@
             <td>{{$value.name}}</td>
             <td>{{$value.slug}}</td>
             <td class="text-center">
-                <a href="javascript:editTr({&quot;id&quot;:&quot;1&quot;,&quot;slug&quot;:&quot;uncategorized&quot;,&quot;name&quot;:&quot;未分类&quot;});" class="btn btn-info btn-xs">编辑</a>
-                <a href="javascript:deleteTr( 1 );" class="btn btn-danger btn-xs">删除</a>
+                <a class="btn btn-info btn-xs">编辑</a>
+                <a class="btn btn-danger btn-xs">删除</a>
             </td>
         </tr>
         {{/each}}
@@ -86,20 +86,13 @@
             show: false,
             backdrop: false
         });
-
-        $('.category_table').delegate('a', 'click', function() {
-            if ($(this).hasClass('btn-info')) {
-                $('#addModal .modal-title').html('修改分类名称');
-                $('#addModal').modal('show');
-            }
-        })
         $(function() {
             getArticleSort()
 
             function getArticleSort() {
                 $.ajax({
                     method: 'get',
-                    url: 'https://autumnfish.cn/big/admin/category_search',
+                    url: 'http://localhost:8000/admin/category_search',
                     dataType: "json",
                     success: function(data) {
                         console.log(data);
@@ -115,6 +108,7 @@
                 $('#message-text').val(null)
                 $('#addModal').modal('hide');
             });
+            // 新增功能
             $('#model_add').click(function() {
                 var fromVal = {
                     name: $('#recipient-name').val(),
@@ -125,7 +119,7 @@
                 } else {
                     $.ajax({
                         method: 'post',
-                        url: 'https://autumnfish.cn/big/admin/category_add',
+                        url: 'http://localhost:8000/admin/category_add',
                         data: fromVal,
                         dataType: 'json',
                         success: function(data) {
@@ -139,6 +133,11 @@
                     })
                 }
             });
+            // 编辑功能
+            $('tbody').on('click', 'a.btn-info', function() {
+                console.log($(this).parent());
+
+            })
         })
     </script>
 

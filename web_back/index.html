@@ -135,7 +135,7 @@
                     $('.btn-primary').click(function() {
                         $.ajax({
                             method: 'post',
-                            url: 'https://autumnfish.cn/big/admin/logout',
+                            url: 'http://localhost:8000/admin/logout',
                             dataType: 'json',
                             success: function(data) {
                                 const {
@@ -153,7 +153,7 @@
                 // 获取用户信息功能
             $.ajax({
                 method: 'get',
-                url: 'https://autumnfish.cn/big/admin/getuser',
+                url: 'http://localhost:8000/admin/getuser',
                 dataType: 'json',
                 success: function(data) {
                     $('.user_info i').text(data.data.nickname)

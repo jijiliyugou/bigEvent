@@ -109,7 +109,7 @@
         function getUserInfo() {
             $.ajax({
                 method: 'get',
-                url: 'https://autumnfish.cn/big/admin/userinfo_get',
+                url: 'http://localhost:8000/admin/userinfo_get',
                 dataType: 'json',
                 success: function(data) {
                     for (const key in data.data) {
@@ -122,14 +122,14 @@
         $('#user_pic').change(function() {
                 $(this).siblings('img').attr('src', URL.createObjectURL(this.files[0]))
             })
-            // https://autumnfish.cn/big/admin/userinfo_edit
+            // http://localhost:8000/admin/userinfo_edit
         $('.btn-success').click(function(e) {
             e = e || window.event
             e.preventDefault()
             var formData = new FormData($('form')[0])
             $.ajax({
                 method: 'post',
-                url: "https://autumnfish.cn/big/admin/userinfo_edit",
+                url: "http://localhost:8000/admin/userinfo_edit",
                 data: formData,
                 contentType: false,
                 processData: false,
